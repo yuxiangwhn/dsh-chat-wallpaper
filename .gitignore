@@ -1,0 +1,13 @@
+node_modules/
+*.tgz
+*.bak
+*.bak2
+ping.txt
+probe*.json
+# development leftovers: one-off patch scripts and the original artwork that the
+# generated default replaced
+patch_*.py
+feature_update.py
+finalize.py
+final_patch.py
+assets/wall.orig.jpg

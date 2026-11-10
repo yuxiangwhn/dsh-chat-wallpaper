@@ -1,0 +1,62 @@
+{
+  "name": "dsh-chat-wallpaper",
+  "version": "1.1.0",
+  "type": "module",
+  "description": "Image wallpaper behind the DeepSeek Harness chat UI: glass surfaces in front of it, frosted composer and user bubbles, +5px of blur once a conversation has content, and a frosted backdrop behind settings-style overlays.",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "wallpaper",
+    "background-image",
+    "glass",
+    "frosted-glass",
+    "blur",
+    "skin",
+    "ui"
+  ],
+  "license": "MIT",
+  "author": "yuxiangwhn",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuxiangwhn/dsh-chat-wallpaper.git"
+  },
+  "homepage": "https://github.com/yuxiangwhn/dsh-chat-wallpaper#readme",
+  "bugs": {
+    "url": "https://github.com/yuxiangwhn/dsh-chat-wallpaper/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    },
+    "compatibility": {
+      "dshReleases": {
+        "0.2.2-rc.1": "compatible"
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# dsh-chat-wallpaper bundle layer: insert one loader entry. The browser half
+# is picked up by dsh-client-modules from the package's dsh.client declaration.
+- insert:
+    - id: dsh-chat-wallpaper
+      name: dsh-chat-wallpaper
