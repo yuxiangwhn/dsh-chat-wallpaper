@@ -1,6 +1,6 @@
 {
   "name": "dsh-chat-wallpaper",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "description": "Image wallpaper behind the DeepSeek Harness chat UI: glass surfaces in front of it, frosted composer and user bubbles, +5px of blur once a conversation has content, and a frosted backdrop behind settings-style overlays.",
   "main": "lib/index.js",

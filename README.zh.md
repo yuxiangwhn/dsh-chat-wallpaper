@@ -24,7 +24,7 @@ dsh plugin add dsh-chat-wallpaper
 目前没有发到 npm，可以装预构建的 tarball：
 
 ```
-dsh plugin add https://github.com/yuxiangwhn/dsh-chat-wallpaper/releases/download/v1.1.0/dsh-chat-wallpaper-1.1.0.tgz
+dsh plugin add https://github.com/yuxiangwhn/dsh-chat-wallpaper/releases/download/v1.1.1/dsh-chat-wallpaper-1.1.1.tgz
 ```
 
 收录之后也可以在 DSH 的插件市场里搜索 `dsh-chat-wallpaper` 一键安装。

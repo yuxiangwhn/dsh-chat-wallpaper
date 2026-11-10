@@ -39,7 +39,7 @@ dsh plugin add dsh-chat-wallpaper
 Not on npm yet — install the prebuilt tarball instead:
 
 ```
-dsh plugin add https://github.com/yuxiangwhn/dsh-chat-wallpaper/releases/download/v1.1.0/dsh-chat-wallpaper-1.1.0.tgz
+dsh plugin add https://github.com/yuxiangwhn/dsh-chat-wallpaper/releases/download/v1.1.1/dsh-chat-wallpaper-1.1.1.tgz
 ```
 
 Or from the plugin market in DSH (Plugins → discover/search `dsh-chat-wallpaper`)

@@ -197,28 +197,41 @@ body.wall-modal [data-wall-blur] {
   filter: blur(8px) saturate(1.03);
 }
 
-/* the composer card and the new-chat button sit on the wallpaper: let its
-   colour through, softened by their own blur */
-[data-wall-glass] {
+/* The composer card, the new-chat button and the user's own bubbles sit on the
+   wallpaper: their colour comes through, softened by their own blur. The rules
+   match the app's own selectors as well as the tag, so a surface that was just
+   created — a message you sent a frame ago — is already glass on its first
+   paint; the tag stays for the pages that only the JS can recognise. */
+:is([data-wall-glass],
+    .GRgSLq_card,
+    [class*="userRow"] [class*="bubble"],
+    [class*="userStack"] [class*="bubble"]) {
   background: rgba(18, 22, 30, 0.42) !important;
   border-color: rgba(255, 255, 255, 0.10) !important;
   -webkit-backdrop-filter: blur(18px) saturate(1.35);
   backdrop-filter: blur(18px) saturate(1.35);
 }
-body:not([data-ds-dark-theme]) [data-wall-glass] {
+body:not([data-ds-dark-theme]) :is([data-wall-glass],
+    .GRgSLq_card,
+    [class*="userRow"] [class*="bubble"],
+    [class*="userStack"] [class*="bubble"]) {
   background: rgba(255, 255, 255, 0.42) !important;
   border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
 /* the user's own message bubbles need a visible edge, otherwise the glass
    dissolves into a dark wallpaper */
-[data-wall-glass="user"] {
+:is([data-wall-glass="user"],
+    [class*="userRow"] [class*="bubble"],
+    [class*="userStack"] [class*="bubble"]) {
   background: rgba(24, 29, 39, 0.55) !important;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.10), 0 2px 10px rgba(0, 0, 0, 0.22) !important;
   -webkit-backdrop-filter: blur(18px) saturate(1.4);
   backdrop-filter: blur(18px) saturate(1.4);
 }
-body:not([data-ds-dark-theme]) [data-wall-glass="user"] {
+body:not([data-ds-dark-theme]) :is([data-wall-glass="user"],
+    [class*="userRow"] [class*="bubble"],
+    [class*="userStack"] [class*="bubble"]) {
   background: rgba(255, 255, 255, 0.55) !important;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.10), 0 2px 10px rgba(0, 0, 0, 0.10) !important;
 }
@@ -748,6 +761,16 @@ body:not([data-ds-dark-theme]) [data-wall-glass="user"] {
     } catch {}
   }
 
+  // Cheap probe for "did a surface appear that still needs the glass tag". It
+  // mirrors decorateGlass()'s selectors exactly, so a false positive cannot
+  // turn into a re-scan on every mutation.
+  function needsGlass() {
+    return !!document.querySelector(
+      '.GRgSLq_card:not([data-wall-glass]), ' +
+      '[class*="userRow"] [class*="bubble"]:not([data-wall-glass]), ' +
+      '[class*="userStack"] [class*="bubble"]:not([data-wall-glass])')
+  }
+
   function syncModal(immediate) {
     const body = document.body
     if (!body) return
@@ -881,10 +904,11 @@ body:not([data-ds-dark-theme]) [data-wall-glass="user"] {
     let lastSig = ''
     try { lastSig = topsig() } catch {}
     const fastObserver = new MutationObserver(() => {
-      // the glass tagging has to be instant: a re-created composer (new chat)
-      // would otherwise spend a few frames without the treatment
+      // the glass tagging has to be instant: a re-created composer (new chat), a
+      // message that was just sent, or a new chat opened from the sidebar would
+      // otherwise spend up to the coalesced pass's 400ms without the treatment
       try {
-        if (!document.querySelector('.GRgSLq_card[data-wall-glass]')) decorateGlass()
+        if (needsGlass()) decorateGlass()
       } catch {}
       try { syncTyping() } catch {}
       let sig = ''
